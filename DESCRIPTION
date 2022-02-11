@@ -1,12 +1,16 @@
-Package: BEDDIT
-Title: What the Package Does (One Line, Title Case)
+Package: BEDDiT
+Title: Bedtime Estimation from the Diurnal Distribution in Timestamps on Reddit
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("William", "Meyerson", , "william.ulysses@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1757-1451"))
+Description: BEDDIT estimates the average bedtimes of Reddit users from a data frame containing unique IDs of usernames and the timestamps of their posts. Can you pre-built model or train a new one from scratch. If the bedtime is desired in a user's local time, a time zones object is required. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports: 
+    lubridate
+Depends: 
+    R (>= 2.10)
+LazyData: true

@@ -1,13 +1,13 @@
 This R package trains, tests, and applies models for inferring Reddit user bedtimes in the manner of https://psyarxiv.com/9mpbw/
 
 ### Installation:
-To install, first ensure devtools is installed
-install.packages("devtools")
-library(devtools)
+To install, first ensure devtools is installed  
+install.packages("devtools")  
+library(devtools)  
 
-Then install the BEDDiT package
-install_github("WillMeyerson/BEDDiT")
-library(BEDDiT)
+Then install the BEDDiT package  
+install_github("WillMeyerson/BEDDiT")  
+library(BEDDiT)  
 
 ### Use:
 Most users will only be interested in two functions: bin_beddit() and apply_beddit()

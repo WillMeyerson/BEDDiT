@@ -20,9 +20,6 @@ idealized unified model of Reddit posting frequency at each time bin relative to
 Train a model from a collection of authors' circadian footprints and their known bedtimes
 }
 \examples{
-my_timestamps <- data.frame(author=c(1,1,2,2), created_utc=1.6*10^9+c(0,1000,2000,3000))
-my_bedtimes <- data.frame(author=c(1,2), nightbed=c(-1,1))
-my_timezones <- create_dummy_timezones(my_timestamps)
-my_bins <- time_of_day_binner(assign_time_of_day(my_timestamps, my_timezones))
-train_beddit(my_timebins, my_bedtimes)
+core_bins <- bin_beddit(timestamps = core_timestamps, timezones = core_timezones)
+train_beddit(timebins = core_bins, bedtimes = core_reportedbedtimes)
 }

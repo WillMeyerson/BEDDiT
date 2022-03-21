@@ -19,5 +19,5 @@ Convert timestamps data frame into circadian footprint
 }
 \examples{
 my_timestamps <- data.frame(author=c(1,1,2,2), created_utc=1.6*10^9+c(0,1000,2000,3000))
-bin_beddit(my_timestamps, timezones=FALSE)
+bin_beddit(my_timestamps, timezones=as.numeric())
 }

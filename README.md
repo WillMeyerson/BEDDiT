@@ -52,7 +52,8 @@ hist(extended_estimated$inferred_bedtime)
 #### Tips
 You can analyze a user's bedtime separately in different contexts such as across years or
 days of the week by splitting the timestamps file as a pre-processing step.
-For instance, 
+For instance, \
+\
 library(lubridate)\
 clock.mean_inferred_bedtime = function(DF) {
   return(clock.mean(DF$inferred_bedtime))
@@ -73,5 +74,5 @@ for(i in 1:length(bed_year)) {
 }
 
 
-df_bed_year = data.frame(year_month = as.numeric(names(cty)), bedtime=sapply(bed_year, clock.mean_inferred_bedtime))\
+df_bed_year = data.frame(year_month = as.numeric(names(cty)), bedtime=sapply(bed_year, clock.mean_inferred_bedtime))
 

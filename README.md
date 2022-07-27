@@ -53,10 +53,10 @@ hist(extended_estimated$inferred_bedtime)
 You can analyze a user's bedtime separately in different contexts such as across years or
 days of the week by splitting the timestamps file as a pre-processing step.
 For instance, 
-library(lubridate)
+library(lubridate)\
 clock.mean_inferred_bedtime = function(DF) {
   return(clock.mean(DF$inferred_bedtime))
-}
+}\
 core_timestamps$year = year(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))\
 core_timestamps$month = month(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))\
 core_timestamps$year_month = core_timestamps$year + (core_timestamps$month-1)/12\

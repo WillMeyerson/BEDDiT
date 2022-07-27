@@ -48,3 +48,31 @@ extended_estimated <- apply_beddit(bins=extended_binned_local,
                                    model=core_model)  
 
 hist(extended_estimated$inferred_bedtime)  
+
+#### Tips
+You can analyze a user's bedtime separately in different contexts such as across years or
+days of the week by splitting the timestamps file as a pre-processing step.
+For instance, 
+library(lubridate)
+clock.mean_inferred_bedtime = function(DF) {
+  return(clock.mean(DF$inferred_bedtime))
+}
+core_timestamps$year = year(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))
+core_timestamps$month = month(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))
+core_timestamps$year_month = core_timestamps$year + (core_timestamps$month-1)/12
+## 2014 to 2021
+cty = split(core_timestamps[which(core_timestamps$year >= 2015),], core_timestamps$year_month[which(core_timestamps$year >= 2015)])
+bins_year = vector("list", length=length(cty))
+for(i in 1:length(cty)) {
+  print(i)
+  bins_year[[i]] = bin_beddit(timestamps = cty[[i]], timezones = core_timezones)
+}
+bed_year = vector("list", length(cty))
+for(i in 1:length(bed_year)) {
+  bed_year[[i]] = apply_beddit(bins_year[[i]], model = default_model)
+  bed_year[[i]]$year = names(cty)[i]
+}
+
+
+df_bed_year = data.frame(year_month = as.numeric(names(cty)), bedtime=sapply(bed_year, clock.mean_inferred_bedtime))
+

@@ -1,4 +1,4 @@
-`This R package trains, tests, and applies models for inferring Reddit user bedtimes in the manner of https://psyarxiv.com/9mpbw/
+`This R package trains, tests, and applies models for inferring Reddit user bedtimes in the manner of https://formative.jmir.org/2023/1/e38112
 
 ### Installation:
 To install, first ensure devtools is installed  
@@ -18,61 +18,9 @@ apply_beddit() is the main function for casual users of the R package. It predic
 
 There are an additional functions to make it convenient for users who want to train and test their own Reddit bedtime estimation models, or more deeply understand the mechanics of the package.
 
-### Main workflow of BEDDiT paper:
+Please note that it is expected that the apply_beddit() function will be updated in the future to reflect simplifications in the workflow since the original compiling of the pacakge.
 
-options(stringsAsFactors = F)
-
-if(!require(devtools)){
-  install.packages("devtools")
-}  
-if(!require(BEDDiT)){
-  install_github("WillMeyerson/BEDDiT")
-}  
-
-library(BEDDiT)  
-
-core_bins <- bin_beddit(timestamps = core_timestamps, timezones = core_timezones)  
-
-core_model <- train_beddit(timebins = core_bins, bedtimes = core_reportedbedtimes) 
+Researchers interested in the pre-computed bedtime estimates of 50,000 users from the manuscript should write to name1.name2@gmail.com where name1="william" and name2="ulysses" to receive access to a data usage agreement in preparation for the file share. 
 
 
-core_test <- test_beddit(timebins=core_bins, 
-                               model=core_model, 
-                               bedtimes=core_reportedbedtimes)  
-
-validation_test <- test_beddit(timebins=validation_binned_local, 
-                               model=core_model, 
-                               bedtimes=validation_reportedbedtimes)  
-
-extended_estimated <- apply_beddit(bins=extended_binned_local, 
-                                   model=core_model)  
-
-hist(extended_estimated$inferred_bedtime)  
-
-#### Tips
-You can analyze a user's bedtime separately in different contexts such as across years or
-days of the week by splitting the timestamps file as a pre-processing step.
-For instance, \
-\
-library(lubridate)\
-clock.mean_inferred_bedtime = function(DF) {
-  return(clock.mean(DF$inferred_bedtime))
-}\
-core_timestamps$year = year(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))\
-core_timestamps$month = month(as.POSIXct(core_timestamps$created_utc, origin="1970-01-01"))\
-core_timestamps$year_month = core_timestamps$year + (core_timestamps$month-1)/12\
-cty = split(core_timestamps[which(core_timestamps$year >= 2015),], core_timestamps$year_month[which(core_timestamps$year >= 2015)])\
-bins_year = vector("list", length=length(cty))\
-for(i in 1:length(cty)) {
-  print(i)\
-  bins_year[[i]] = bin_beddit(timestamps = cty[[i]], timezones = core_timezones)
-}\
-bed_year = vector("list", length(cty))\
-for(i in 1:length(bed_year)) {
-  bed_year[[i]] = apply_beddit(bins_year[[i]], model = default_model)\
-  bed_year[[i]]$year = names(cty)[i]\
-}
-
-
-df_bed_year = data.frame(year_month = as.numeric(names(cty)), bedtime=sapply(bed_year, clock.mean_inferred_bedtime))
 
